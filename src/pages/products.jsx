@@ -40,22 +40,35 @@ const products = [
   },
 ];
 
+const email = localStorage.getItem("email");
+const handleLogout = () => {
+  localStorage.removeItem("email");
+  localStorage.removeItem("password");
+  window.location.href = "/login";
+};
 export const ProductsPage = () => {
-
-  const producList = products.map(product => 
+  const producList = products.map((product) => (
     <CardProduct key={product.id}>
-        <CardProduct.image urlImage={product.image} />
-        <CardProduct.body>
-          <CardProduct.title title={product.title} />
-          <CardProduct.desc desc={product.desc} />
-          <CardProduct.footer price={product.price} />
-        </CardProduct.body>
-      </CardProduct>
-  )
+      <CardProduct.image urlImage={product.image} />
+      <CardProduct.body>
+        <CardProduct.title title={product.title} />
+        <CardProduct.desc desc={product.desc} />
+        <CardProduct.footer price={product.price} />
+      </CardProduct.body>
+    </CardProduct>
+  ));
 
   return (
-    <div className="flex justify-center flex-wrap">
-      {producList}
-    </div>
+    <>
+      <div className="flex justify-end bg-blue-400 h-20 px-5 items-center">
+        <p className="text-white text-xl me-3">{email}</p>
+        <Button
+          onClick={handleLogout}
+          text="log out"
+          className="w-fit h-fit"
+        ></Button>
+      </div>
+      <div className="flex justify-center flex-wrap">{producList}</div>
+    </>
   );
 };

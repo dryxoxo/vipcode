@@ -1,8 +1,14 @@
-import React from 'react'
+import React from "react";
 
 export const Button = (props) => {
-    const {text} = props
+  const { text, onClick = () => {}, type="button", className="" } = props;
   return (
-    <div className="btn btn-primary w-full">{text}</div>
-  )
-}
+    <button
+      className={`btn btn-primary w-full ${className}`}
+      onClick={() => onClick()}
+      type={type}
+    >
+      {text}
+    </button>
+  );
+};
