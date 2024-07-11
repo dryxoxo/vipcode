@@ -1,26 +1,28 @@
 import React from "react";
 import { Button } from "../Elements/Button";
+
+
 export const CardProduct = (props) => {
-    const {children} = props
+  const { children } = props
   return (
     <div className="card bg-base-100 w-96 shadow-xl mt-10 me-5">
-        {children}
+      {children}
     </div>
   );
 };
 
 
 const Image = (props) => {
-    const {urlImage} = props
-return(
+  const { urlImage } = props
+  return (
     <figure>
-    <img
-      src={urlImage}
-      alt="Shoes"
-      className="object-cover h-48 w-96 hover:h-full"
-    />
-  </figure>
-)
+      <img
+        src={urlImage}
+        alt="Shoes"
+        className="object-cover h-48 w-96 hover:h-full"
+      />
+    </figure>
+  )
 }
 
 const Body = (props) => {
@@ -39,15 +41,15 @@ const Description = (props) => {
 };
 
 const Footer = (props) => {
-  const { price } = props;
+  const { price, handleAddToCart, id } = props;
   return (
     <div className="card-actions mt-5">
       <div className="grid grid-cols-12 gap-1 w-full ">
         <div className="col-span-4 self-center">
-          <p>{price}</p>
+          <p>Rp {price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
         </div>
         <div className="col-span-8 justify-self-stretch">
-          <Button text="Buy Now" />
+          <Button text="Buy Now" onClick={() => handleAddToCart(id)}/>
         </div>
       </div>
     </div>

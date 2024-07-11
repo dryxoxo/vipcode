@@ -5,7 +5,7 @@ export const Button = (props) => {
   return (
     <button
       className={`btn btn-primary w-full ${className}`}
-      onClick={() => onClick()}
+      onClick={onClick}
       type={type}
     >
       {text}
