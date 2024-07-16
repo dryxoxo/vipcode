@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../components/Elements/Button";
 import { CardProduct } from "../components/Fragments/CardProduct";
 
@@ -86,6 +86,11 @@ export const ProductsPage = () => {
     }
   };
 
+  const totalPriceRef = useRef(null)
+  console.log(totalPriceRef);
+  useEffect(()=>{
+    cart.length > 0? totalPriceRef.current.style.display = "table-row":totalPriceRef.current.style.display = "none"
+  }, [cart])
   const producList = products.map((product) => (
     <CardProduct key={product.id}>
       <CardProduct.image urlImage={product.image} />
@@ -138,7 +143,7 @@ export const ProductsPage = () => {
                   </tr>
                 );
               })}
-              <tr>
+              <tr ref={totalPriceRef}>
                 <td colSpan={3}>
                   <b>Total Price</b>
                 </td>
