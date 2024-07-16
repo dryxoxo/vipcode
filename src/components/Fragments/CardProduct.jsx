@@ -45,10 +45,10 @@ const Footer = (props) => {
   return (
     <div className="card-actions mt-5">
       <div className="grid grid-cols-12 gap-1 w-full ">
-        <div className="col-span-4 self-center">
-          <p>Rp {price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+        <div className="col-span-7 self-center">
+          <p>{price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
         </div>
-        <div className="col-span-8 justify-self-stretch">
+        <div className="col-span-5 justify-self-stretch">
           <Button text="Buy Now" onClick={() => handleAddToCart(id)}/>
         </div>
       </div>
