@@ -8,8 +8,6 @@ export const FormLogin = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    localStorage.setItem('username', event.target.username.value)
-    localStorage.setItem('password', event.target.password.value)
     const payload = {
       username: event.target.username.value,
       password: event.target.password.value
