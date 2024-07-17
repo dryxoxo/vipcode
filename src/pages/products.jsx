@@ -3,7 +3,7 @@ import { Button } from "../components/Elements/Button";
 import { CardProduct } from "../components/Fragments/CardProduct";
 import { getProducts } from "../services/product.service";
 
-const email = localStorage.getItem("email");
+const username = localStorage.getItem("username");
 
 export const ProductsPage = () => {
   const [cart, setcart] = useState([]);
@@ -33,7 +33,7 @@ export const ProductsPage = () => {
   }, [cart]);
 
   const handleLogout = () => {
-    localStorage.removeItem("email");
+    localStorage.removeItem("username");
     localStorage.removeItem("password");
     window.location.href = "/login";
   };
@@ -80,7 +80,7 @@ export const ProductsPage = () => {
   return (
     <>
       <div className="flex justify-end bg-blue-400 h-20 px-5 items-center">
-        <p className="text-white text-xl me-3">{email}</p>
+        <p className="text-white text-xl me-3">{username}</p>
         <Button
           onClick={handleLogout}
           text="log out"
