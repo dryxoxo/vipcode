@@ -1,58 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../components/Elements/Button";
 import { CardProduct } from "../components/Fragments/CardProduct";
-
-const products = [
-  {
-    id: 1,
-    title: "Sepatu Baru",
-    price: 1000000,
-    image: "/image/pair-trainers-2.jpg",
-    desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    id: 2,
-    title: "Sepatu Olahraga",
-    price: 1200000,
-    image: "/image/pair-trainers.jpg",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  },
-  {
-    id: 3,
-    title: "Sepatu Lari",
-    price: 950000,
-    image: "/image/pair-trainers-1.png",
-    desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    id: 4,
-    title: "Sepatu Casual",
-    price: 800000,
-    image: "/image/pair-trainers-2.jpg",
-    desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  },
-  {
-    id: 5,
-    title: "Sepatu Formal",
-    price: 1500000,
-    image: "/image/pair-trainers.jpg",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-];
+import { getProducts } from "../services/product.service";
 
 const email = localStorage.getItem("email");
 
 export const ProductsPage = () => {
   const [cart, setcart] = useState([]);
-
   const [totalPrice, setTotalPrice] = useState(0);
+  const [products, setProducts] = useState([])
+  
+  useEffect(()=>{
+    getProducts(data => {
+      setProducts(data);
+      console.log(data);
+    })
+  },[])
 
   useEffect(() => {
     setcart(JSON.parse(localStorage.getItem("cart")) || []);
   }, []);
 
   useEffect(() => {
-    if (cart.length > 0) {
+    if (products.length > 0 && cart.length > 0) {
       const sum = cart.reduce((acc, item) => {
         const product = products.find((product) => product.id === item.id);
         return acc + product.price * item.qty;
@@ -87,11 +57,13 @@ export const ProductsPage = () => {
   };
 
   const totalPriceRef = useRef(null)
-  console.log(totalPriceRef);
+ 
   useEffect(()=>{
     cart.length > 0? totalPriceRef.current.style.display = "table-row":totalPriceRef.current.style.display = "none"
   }, [cart])
-  const producList = products.map((product) => (
+  
+  
+  const producList = products.length > 0 && products.map((product) => (
     <CardProduct key={product.id}>
       <CardProduct.image urlImage={product.image} />
       <CardProduct.body>
@@ -105,7 +77,6 @@ export const ProductsPage = () => {
       </CardProduct.body>
     </CardProduct>
   ));
-
   return (
     <>
       <div className="flex justify-end bg-blue-400 h-20 px-5 items-center">
@@ -130,7 +101,7 @@ export const ProductsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {cart.map((item) => {
+              {products.length>0 && cart.map((item) => {
                 const product = products.find(
                   (product) => product.id === item.id
                 );
