@@ -2,24 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../components/Elements/Button";
 import { CardProduct } from "../components/Fragments/CardProduct";
 import { getProducts } from "../services/product.service";
-import { jwtDecode } from "jwt-decode";
-
+import { useLogin } from "../hooks/useLogin";
 
 export const ProductsPage = () => {
   const [cart, setcart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
-  const [user, setuser] = useState("")
-  
-  useEffect(()=>{
-    const token = localStorage.getItem("token");
-    if(token){
-      const { user } = jwtDecode(token);
-      setuser(user)
-    } else {
-      window.location.href = "/login"
-    }
-  })
+  const user = useLogin();
+
   useEffect(() => {
     getProducts((data) => {
       setProducts(data);
@@ -78,7 +68,7 @@ export const ProductsPage = () => {
       <CardProduct key={product.id}>
         <CardProduct.image urlImage={product.image} />
         <CardProduct.body>
-          <CardProduct.title title={product.title} />
+          <CardProduct.title title={product.title} id={product.id} />
           <CardProduct.desc desc={product.desc} />
           <CardProduct.footer
             price={product.price}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../Elements/Button";
-
+import { Link } from "react-router-dom";
 
 export const CardProduct = (props) => {
   const { children } = props
@@ -31,8 +31,10 @@ const Body = (props) => {
 };
 
 const Title = (props) => {
-  const { title } = props;
-  return <h2 className="card-title">{title}</h2>;
+  const { title, id } = props;
+  return <h2 className="card-title">
+    <Link to={`/product/${id}`}>{title}</Link>
+  </h2>;
 };
 
 const Description = (props) => {
