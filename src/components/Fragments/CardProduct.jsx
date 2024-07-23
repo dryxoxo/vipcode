@@ -1,6 +1,8 @@
 import React from "react";
 import { Button } from "../Elements/Button";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/action/cartSlice";
 
 export const CardProduct = (props) => {
   const { children } = props
@@ -43,7 +45,9 @@ const Description = (props) => {
 };
 
 const Footer = (props) => {
-  const { price, handleAddToCart, id } = props;
+  const dispatch = useDispatch();
+  
+  const { price, id } = props;
   return (
     <div className="card-actions mt-5">
       <div className="grid grid-cols-12 gap-1 w-full ">
@@ -51,7 +55,7 @@ const Footer = (props) => {
           <p>{price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
         </div>
         <div className="col-span-5 justify-self-stretch">
-          <Button text="Buy Now" onClick={() => handleAddToCart(id)}/>
+          <Button text="Buy Now" onClick={() =>dispatch(addToCart({id, qty:1}))}/>
         </div>
       </div>
     </div>
